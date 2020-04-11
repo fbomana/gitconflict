@@ -67,7 +67,6 @@ public class GitServiceCommandLineImplTest {
     public void findUnmergedBranchesNullRepo() throws IOException {
         expectedEx.expect(NullPointerException.class);
         expectedEx.expectMessage("repo is marked @NonNull but is null");
-        GitRepository repo = new GitRepository(TestUtils.prepareEnvironment("/test-repo.zip"), "test-repo");
 
         service.findUnmergedBranches(null, "master", true, Pattern.compile("^feature/.*"));
     }
@@ -108,7 +107,7 @@ public class GitServiceCommandLineImplTest {
         expectedEx.expectMessage("branch is marked @NonNull but is null");
 
         GitRepository repo = new GitRepository(TestUtils.prepareEnvironment("/test-repo.zip"), "test-repo");
-        List<String> files = service.findModifiedFiles(repo, null, "master");
+        service.findModifiedFiles(repo, null, "master");
     }
 
     @Test
@@ -117,7 +116,7 @@ public class GitServiceCommandLineImplTest {
         expectedEx.expectMessage("base is marked @NonNull but is null");
 
         GitRepository repo = new GitRepository(TestUtils.prepareEnvironment("/test-repo.zip"), "test-repo");
-        List<String> files = service.findModifiedFiles(repo, "feature/unmerged1", null);
+        service.findModifiedFiles(repo, "feature/unmerged1", null);
     }
 
     @Test
@@ -125,8 +124,7 @@ public class GitServiceCommandLineImplTest {
         expectedEx.expect(NullPointerException.class);
         expectedEx.expectMessage("repo is marked @NonNull but is null");
 
-        GitRepository repo = new GitRepository(TestUtils.prepareEnvironment("/test-repo.zip"), "test-repo");
-        List<String> files = service.findModifiedFiles(null, "feature/unmerged1", "master");
+        service.findModifiedFiles(null, "feature/unmerged1", "master");
     }
 
     @Test

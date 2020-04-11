@@ -28,6 +28,6 @@ public class CommandLineUtilsTest {
     @Test(expected = IOException.class )
     public void runCommandLineNoOk() throws IOException {
         CommandLineUtils clu = new CommandLineUtilsImpl();
-        String output = clu.runCommandLine("thiscommandshouldnotexists");
+        clu.runCommandLine("thiscommandshouldnotexists");
     }
 }

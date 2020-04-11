@@ -4,3 +4,12 @@ target
 # idea files
 .idea/
 gitconflict.iml
+
+#eclipse files
+.classpath
+.settings
+.project
+
+# derby files
+derby.log
+conflictdb

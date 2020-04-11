@@ -15,9 +15,9 @@ public class Branch {
     @Column( nullable = false )
     String branchName;
 
-    @OneToMany
+    @ManyToOne
     private ChangeSet changeSet;
 
-    @ManyToOne
+    @OneToMany
     private List<ModifiedFile> files;
 }

@@ -1,7 +1,8 @@
 package es.gitconflict.repositories;
 
-import es.gitconflict.entities.Branch;
-import org.springframework.data.repository.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface BranchRepository extends Repository<Branch, Long> {
+import es.gitconflict.entities.Branch;
+
+public interface BranchRepository extends JpaRepository<Branch, Long> {
 }

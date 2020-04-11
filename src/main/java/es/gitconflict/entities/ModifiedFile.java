@@ -1,11 +1,11 @@
 package es.gitconflict.entities;
 
-import lombok.Data;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
+
+import lombok.Data;
 
 @Entity
 @Data
@@ -17,6 +17,6 @@ public class ModifiedFile
     @Column( nullable = false)
     private String fileName;
 
-    @OneToMany
+    @ManyToOne
     private Branch branch;
 }

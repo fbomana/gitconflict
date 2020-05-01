@@ -1,7 +1,6 @@
 package es.gitconflict;
 
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class GitConflictTest {
 

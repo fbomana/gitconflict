@@ -1,22 +1,21 @@
 package es.gitconflict.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-
 import lombok.Data;
+
+import javax.persistence.*;
 
 @Entity
 @Data
 public class ModifiedFile
 {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column( name="FILE_ID" )
     private Long fileId;
 
-    @Column( nullable = false)
+    @Column( name="FILE_NAME", nullable = false)
     private String fileName;
 
-    @ManyToOne
-    private Branch branch;
+    @Column(name="BRANCH_ID", nullable=false)
+    private Long branchId;
 }

@@ -10,14 +10,17 @@ import java.util.List;
 public class Branch {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="BRANCH_ID")
     private Long branchId;
 
-    @Column( nullable = false )
-    String branchName;
+    @Column( name="BRANCH_NAME", nullable = false )
+    private String branchName;
 
-    @ManyToOne
-    private ChangeSet changeSet;
+    @Column(name="CHANGE_SET_ID", nullable = false)
+    private Long changeSetId;
 
     @OneToMany
+    @JoinColumn( name = "FILE_ID")
     private List<ModifiedFile> files;
 }

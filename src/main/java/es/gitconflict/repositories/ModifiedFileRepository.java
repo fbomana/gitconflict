@@ -1,16 +1,15 @@
 package es.gitconflict.repositories;
 
-import java.util.List;
-
+import es.gitconflict.entities.ModifiedFile;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import es.gitconflict.entities.ModifiedFile;
+import java.util.List;
 
 public interface ModifiedFileRepository extends JpaRepository<ModifiedFile, Long> 
 {
-	
-//	@Query( nativeQuery = true, value = "" )
-//	public List<ModifiedFile> findConflicts( @Param( "change_id" ) Long id );
+
+    @Query( "SELECT m FROM ModifiedFile m where m.branchId <> :branchId and m.fileId in ( SELECT f.fileId FROM ModifiedFile f WHERE f.branchId = :branchId )")
+    public List<ModifiedFile> findConflicts( @Param("branchId") Long branchId );
 }

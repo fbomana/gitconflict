@@ -1,26 +1,25 @@
 package es.gitconflict.entities;
 
+import lombok.Data;
+
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import lombok.Data;
 
 @Entity
 @Data
 public class ChangeSet {
 
     @Id
-    private Long changeSet;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="CHANGE_SET_ID")
+    private Long changeSetId;
 
-    @Column(nullable = false)
+    @Column(name="TIMESTAMP", nullable = false)
     private Timestamp timestamp;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn( name = "CHANGE_SET_ID")
     private List<Branch> branches;
 
 }

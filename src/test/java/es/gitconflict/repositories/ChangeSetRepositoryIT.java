@@ -26,21 +26,21 @@ public class ChangeSetRepositoryIT {
     {
         Timestamp ts = new Timestamp( System.currentTimeMillis() );
         ChangeSet changeSet = new ChangeSet();
-        changeSet.setChangeSet( 1L );
+        changeSet.setChangeSetId( 1L );
         changeSet.setTimestamp( ts );
 
         ChangeSet saved = repository.save( changeSet );
         assertNotNull( saved );
 
-        ChangeSet recovered = repository.getOne( 1L );
+        ChangeSet recovered = repository.getOne( saved.getChangeSetId() );
         assertNotNull( recovered );
         assertEquals( ts, recovered.getTimestamp());
-        assertEquals( saved.getChangeSet(), recovered.getChangeSet() );
+        assertEquals( saved.getChangeSetId(), recovered.getChangeSetId() );
         assertEquals( saved.getTimestamp(), recovered.getTimestamp() );
 
         repository.delete( recovered );
         try {
-            recovered = repository.getOne( 1L );
+            recovered = repository.getOne( saved.getChangeSetId() );
             fail();
         }
         catch ( javax.persistence.EntityNotFoundException | JpaObjectRetrievalFailureException e )

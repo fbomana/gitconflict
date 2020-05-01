@@ -1,6 +1,7 @@
 package es.gitconflict.repositories;
 
 import es.gitconflict.entities.Branch;
+import es.gitconflict.entities.ChangeSet;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,28 +19,36 @@ import static org.junit.Assert.*;
 public class BranchRepositoryIT
 {
     @Autowired
-    BranchRepository repository;
+    private BranchRepository repository;
+
+    @Autowired
+    private ChangeSetRepository changeSetRepository;
 
     @Test
     @Transactional
     public void crudTest()
     {
+        // Create the changeSet
         Timestamp ts = new Timestamp( System.currentTimeMillis() );
+        ChangeSet changeSet = new ChangeSet();
+        changeSet.setTimestamp( ts );
+        changeSet = changeSetRepository.save( changeSet );
+
         Branch branch = new Branch();
         branch.setBranchName("test");
-        branch.setBranchId( 1L );
+        branch.setChangeSetId( changeSet.getChangeSetId());
 
         Branch saved = repository.save( branch );
         assertNotNull( saved );
 
-        Branch recovered = repository.getOne( 1L );
+        Branch recovered = repository.getOne( saved.getBranchId() );
         assertNotNull( recovered );
         assertEquals( saved.getBranchName(), recovered.getBranchName());
-        assertEquals( saved.getChangeSet(), recovered.getChangeSet() );
+        assertEquals( saved.getChangeSetId(), recovered.getChangeSetId() );
 
         repository.delete( recovered );
         try {
-            recovered = repository.getOne( 1L );
+            recovered = repository.getOne( saved.getBranchId() );
             fail();
         }
         catch ( javax.persistence.EntityNotFoundException | JpaObjectRetrievalFailureException e )

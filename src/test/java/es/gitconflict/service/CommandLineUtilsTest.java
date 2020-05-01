@@ -1,11 +1,12 @@
 package es.gitconflict.service;
 
-import static org.junit.Assert.*;
-
 import es.gitconflict.service.impl.CommandLineUtilsImpl;
 import org.junit.Test;
 
 import java.io.IOException;
+
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 public class CommandLineUtilsTest {
 

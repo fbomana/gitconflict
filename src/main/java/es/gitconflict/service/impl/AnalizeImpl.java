@@ -1,12 +1,5 @@
 package es.gitconflict.service.impl;
 
-import java.io.IOException;
-import java.sql.Timestamp;
-import java.util.List;
-import java.util.regex.Pattern;
-
-import org.springframework.beans.factory.annotation.Autowired;
-
 import es.gitconflict.beans.Conflict;
 import es.gitconflict.beans.GitRepository;
 import es.gitconflict.entities.Branch;
@@ -17,6 +10,12 @@ import es.gitconflict.repositories.ChangeSetRepository;
 import es.gitconflict.repositories.ModifiedFileRepository;
 import es.gitconflict.service.Analizer;
 import es.gitconflict.service.GitService;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.util.List;
+import java.util.regex.Pattern;
 
 public class AnalizeImpl implements Analizer
 {
@@ -47,14 +46,14 @@ public class AnalizeImpl implements Analizer
 		{
 			Branch repoBranch = new Branch();
 			repoBranch.setBranchName( branch );
-			repoBranch.setChangeSet( changeSet );
+			repoBranch.setChangeSetId( changeSet.getChangeSetId() );
 			repoBranch = branchRepository.save( repoBranch );
 			
 			List<String> files = gitService.findModifiedFiles(repo, branch, baseBranch );
 			for ( String file : files )
 			{
 				ModifiedFile modifiedFile = new ModifiedFile();
-				modifiedFile.setBranch( repoBranch );
+				modifiedFile.setBranchId( repoBranch.getBranchId() );
 				modifiedFile.setFileName( file );
 				modifiedFileRepository.save( modifiedFile );
 			}

@@ -1,0 +1,9 @@
+construccion:
+  stage: build
+  script:
+    - 'mvn clean package -DskipTests'
+
+pruebas:
+  stage: test
+  script:
+    - 'mvn test'
